@@ -1,0 +1,144 @@
+<div class="centered">
+  <button class="btn btn-primary centered" (click)="showForm = true">
+    Ajouter Equipe
+  </button>
+</div>
+
+<div *ngIf="showForm" class="form-container">
+  <form (ngSubmit)="createEquipe(equipe)">
+    <div class="form-group">
+      <label for="nom">Nom</label>
+      <input
+        type="text"
+        class="form-control"
+        id="nom"
+        required
+        [(ngModel)]="equipe.nom"
+        name="nom"
+        #equipeForm="ngModel"
+      />
+    </div>
+    <div class="form-group">
+      <label for="pays">Pays</label>
+      <input
+        type="text"
+        class="form-control"
+        id="pays"
+        required
+        [(ngModel)]="equipe.pays"
+        name="pays"
+      />
+    </div>
+    <div class="form-group">
+      <label for="capaciteStade">Capacité du stade</label>
+      <input
+        type="number"
+        class="form-control"
+        id="capaciteStade"
+        required
+        [(ngModel)]="equipe.capaciteStade"
+        name="capaciteStade"
+      />
+    </div>
+    <div class="form-group">
+      <label for="dateFondation">Date de fondation</label>
+      <input
+        type="date"
+        class="form-control"
+        id="dateFondation"
+        required
+        [(ngModel)]="equipe.dateFondation"
+        name="dateFondation"
+      />
+    </div>
+    <div class="coll">
+      <button type="submit" class="btn btn-primary">Ajouter</button>
+      <button class="btn btn-secondary" (click)="showForm = false">
+        Annuler
+      </button>
+    </div>
+  </form>
+</div>
+
+<div *ngIf="showUpdateForm" class="form-container">
+  <form (ngSubmit)="updateEquipe(selectedEquipe.id, selectedEquipe)">
+    <div class="form-group">
+      <label for="nom">Nom</label>
+      <input
+        type="text"
+        class="form-control"
+        id="nom"
+        required
+        [(ngModel)]="selectedEquipe.nom"
+        name="nom"
+        #equipeForm="ngModel"
+      />
+    </div>
+    <div class="form-group">
+      <label for="pays">Pays</label>
+      <input
+        type="text"
+        class="form-control"
+        id="pays"
+        required
+        [(ngModel)]="selectedEquipe.pays"
+        name="pays"
+      />
+    </div>
+    <div class="form-group">
+      <label for="capaciteStade">Capacité du stade</label>
+      <input
+        type="number"
+        class="form-control"
+        id="capaciteStade"
+        required
+        [(ngModel)]="selectedEquipe.capaciteStade"
+        name="capaciteStade"
+      />
+    </div>
+    <div class="form-group">
+      <label for="dateFondation">Date de fondation</label>
+      <input
+        type="date"
+        class="form-control"
+        id="dateFondation"
+        required
+        [(ngModel)]="selectedEquipe.dateFondation"
+        name="dateFondation"
+      />
+    </div>
+    <div class="coll">
+      <button type="submit" class="btn btn-primary">Modifier</button>
+      <button class="btn btn-secondary" (click)="showUpdateForm = false">
+        Annuler
+      </button>
+    </div>
+  </form>
+</div>
+
+<div class="container">
+  <h1>Liste des Equipes de Foot</h1>
+  <div class="card-columns">
+    <div class="card" *ngFor="let equipe of equipes">
+      <div class="card-body">
+        <!-- <p class="card-title">{{ equipe.id }}</p> -->
+        <p class="card-title">{{ equipe.nom }}</p>
+        <p class="card-text">Pays: {{ equipe.pays }}</p>
+        <p class="card-text">Capacité du stade: {{ equipe.capaciteStade }}</p>
+        <p class="card-text">
+          Date de fondation: {{ equipe.dateFondation | date }}
+        </p>
+        <button
+          class="btn btn-secondary"
+          (click)="updateEquipe(equipe.id, equipe)"
+          (click)="showUpdateForm = true; selectedEquipe = equipe"
+        >
+          Modifier
+        </button>
+        <button class="btn btn-danger" (click)="deleteEquipe(equipe)">
+          Supprimer
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
